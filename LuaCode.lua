@@ -93,7 +93,7 @@ local function updateBallOwnership(player)
 		
 		if character:GetAttribute("PerfectSlide") then
 			
-			--Utility.Emit({Attachment = replicatedStorage.Assets.Effects.DribbleEffects.Attachment2,Lifetime = 2,Parent = character.Torso})
+			
 			
 			
 			Utility.Emit({Attachment = replicatedStorage.Storage.Assets.Effects.DribbleEffects.Attachment,Lifetime = 2,Parent = character.Torso})
@@ -131,7 +131,7 @@ local function updateBallOwnership(player)
 		weld.Parent = ball
 		weld.C0 = CFrame.new(0,-2.5,-1.5)
 
-		--print(`The football is now in the possession of {player}!`)
+		
 		
 		
 	else --// RESET THE BALL
@@ -155,12 +155,12 @@ local function updateBallOwnership(player)
 		ball.Parent = workspace
 		
 		local motor6D = ball:FindFirstChild("BallMotor6D")
-		--game:GetService("Debris"):AddItem(motor6D,0)
+		
 		if motor6D then
 			motor6D:Destroy()
 		end 
 		
-		--print("Separated!")
+		
 		
 	end
 	
@@ -174,13 +174,13 @@ local function ballWeld(player : Player,sliding : boolean)
 	local inPossession = ballPossessionCheck(player)
 	if not inPossession then
 
-		if ball.Parent ~= workspace and not sliding and not player.Character.Humanoid.Jump then --// Jump check to allow the player to headbutt the ball instead of taking ownership of it on contact
+		if ball.Parent ~= workspace and not sliding and not player.Character.Humanoid.Jump then 
 			return
 		end
 
 		if not sliding then
 			
-			--print("Not a slide tackle")
+			
 			
 			local ballIsCloseBy = ballProximityCheck(player,ball,proximity)
 			
@@ -190,7 +190,7 @@ local function ballWeld(player : Player,sliding : boolean)
 
 			end
 			
-		else --// If the enemy took the ball via a slide tackle steal
+		else 
 	
 			updateBallOwnership(player,currentOwner)
 			
@@ -202,7 +202,7 @@ local function ballWeld(player : Player,sliding : boolean)
 		
 end
 
---weldBallEvent.OnServerEvent:Connect(ballWeld)
+
 
 local playerBallConnections = {} --// Store the Heartbeat connection for each player
 local ballBlacklist = {} --// Blacklist certain players from the ball proximity check for a certain amount of time
@@ -241,7 +241,7 @@ local function onCharacterAdded(character)
 end
 local function onPlayerAdded(plr : Player)
 	
-	--ballBlacklist[plr.UserId] = nil
+	
 	
 	plr.CharacterAdded:Connect(onCharacterAdded)
 end
@@ -264,7 +264,7 @@ end
 
 local function blacklistPlayerFromBallOwnership(player : Player,timeoutDuration : number) 
 	
-	--timeoutDuration = timeoutDuration or error("No debounce duration given. Bakayaro...")
+	
 	
 	ballBlacklist[player.UserId] = true
 	
@@ -311,5 +311,6 @@ shared.blacklistPlayerFromBallOwnership = blacklistPlayerFromBallOwnership;-- sh
 shared.currentBallOwner = currentOwner
 
 shared.formerBallOwner = formerOwner
+
 
 shared.makeBallIntangible = makeBallIntangible
